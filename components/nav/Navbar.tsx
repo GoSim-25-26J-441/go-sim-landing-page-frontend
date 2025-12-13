@@ -16,7 +16,7 @@ const links = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname(); // ← use the real current path
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
