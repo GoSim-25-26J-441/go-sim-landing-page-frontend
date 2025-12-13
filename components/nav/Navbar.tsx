@@ -94,7 +94,7 @@ export default function Navbar() {
           </div>
           <Link
             href="/get-started"
-            className="px-4 py-2 text-sm font-bold text-[#1F2937] bg-[#E5E7EB] hover:bg-[#E5E7EB]/80 rounded-md"
+            className="px-3 py-2 text-sm font-bold text-[#1F2937] bg-[#E5E7EB] hover:bg-[#E5E7EB]/80 rounded-sm"
           >
             Get Started
           </Link>
