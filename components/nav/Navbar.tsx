@@ -20,8 +20,8 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-black/10 backdrop-blur-md">
-      <nav className="mx-auto max-w-8xl h-20 h-20 px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
+    <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md">
+      <nav className="mx-auto max-w-8xl h-20 px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
         <div>
           <Link href="/" aria-label="GO-SIM Home">
             <Image src={logo} alt="GO-SIM Logo" width={32} height={32} />
@@ -30,9 +30,6 @@ export default function Navbar() {
 
         {/* Desktop - Centered with full space */}
         <div className="hidden md:flex items-center justify-center overflow-visible relative">
-          {/* Add gradient masks */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black/10 via-black/5 to-transparent z-20 pointer-events-none"></div>
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/10 via-black/5 to-transparent z-20 pointer-events-none"></div>
 
           <div className="relative w-full max-w-4xl h-16 flex items-center justify-center">
             <ul className="relative w-full h-full flex items-center justify-center">

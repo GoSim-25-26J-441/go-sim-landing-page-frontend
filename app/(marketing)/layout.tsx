@@ -6,9 +6,9 @@ import Navbar from "../../components/nav/Navbar";
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
   const hasConsent = (await cookies()).has("gs_cookie_consent");
   return (
-    <div className="min-h-dvh flex flex-col">
+    <div className="flex flex-col">
       <Navbar />
-      <main className="pt-14 flex-1">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
       {!hasConsent && <CookieConsent />}
     </div>
