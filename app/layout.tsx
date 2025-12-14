@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "GO-SIM", description: "Design Input 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">
+      <body className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black">
        {children}
       </body>
     </html>
