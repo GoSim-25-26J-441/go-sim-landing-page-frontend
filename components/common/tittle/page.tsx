@@ -20,7 +20,7 @@ export default function Title({
       )}
 
       {isUnderline && (
-        <div className="mt-2 h-0.5 w-full bg-white" />
+        <div className="mt-2 h-0.5 w-full bg-white mb-8" />
       )}
     </div>
   );
