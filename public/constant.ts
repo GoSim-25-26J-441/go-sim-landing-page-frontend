@@ -1,4 +1,5 @@
 import { Section1Props } from "../components/landing/section1/page";
+import { Section2Pros } from "../components/landing/section2/page";
 
 export const section1: Section1Props = {
   title: "Who ArcFind is for",
@@ -39,6 +40,29 @@ export const section1: Section1Props = {
         "Model traffic spikes and see how latency and throughput might change.",
         "Identify critical paths and high-risk dependencies in the service graph.",
         "Support capacity planning with data-driven architecture insights.",
+      ],
+    },
+  ],
+};
+
+export const section2: Section2Pros = {
+  titles: ["The Problem", "The Solution"],
+  description: ["Why microservice design is hard", "How ArcFind helps"],
+  parts: [
+    {
+      points: [
+        "Hard to visualize service-to-service calls.",
+        "Chatty calls and god services appear only after production.",
+        "Simulations are manual and slow.",
+        "Performance issues cost time and money.",
+      ],
+    },
+    {
+      points: [
+        "Upload YAML/JSON and instantly get an architecture graph.",
+        "Automatic anti-pattern detection (chatty calls, shared DB, cycles, etc.).",
+        "Simulation engine estimates performance under load.",
+        "Visual cost and throughput summaries.",
       ],
     },
   ],
