@@ -12,7 +12,7 @@ export default function Title({
   className = "",
 }: TitleProps) {
   return (
-    <div className={`mx-10 ${className}`}>
+    <div className={`${className}`}>
       <h1 className="text-2xl font-bold text-white">{title}</h1>
 
       {description && (

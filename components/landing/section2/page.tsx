@@ -10,7 +10,7 @@ export type Section2Pros = {
 
 export default function Section2({ titles, description, parts }: Section2Pros) {
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 mb-20">
       <div className="grid lg:grid-cols-3 gap-8 lg:gap-6">
         <Card1 points={parts[0].points} />
         

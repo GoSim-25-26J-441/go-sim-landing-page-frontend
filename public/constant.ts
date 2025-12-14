@@ -1,5 +1,6 @@
 import { Section1Props } from "../components/landing/section1/page";
 import { Section2Pros } from "../components/landing/section2/page";
+import { Section4Props } from "../components/landing/section4/page";
 
 export const section1: Section1Props = {
   title: "Who ArcFind is for",
@@ -63,6 +64,32 @@ export const section2: Section2Pros = {
         "Automatic anti-pattern detection (chatty calls, shared DB, cycles, etc.).",
         "Simulation engine estimates performance under load.",
         "Visual cost and throughput summaries.",
+      ],
+    },
+  ],
+};
+
+
+export const section3: Section4Props = {
+  title: ["Key features", "Frequently asked questions"],
+
+  points: [
+    {
+      part1: [
+        { mainPoints: "Architecture Graph Visualization", subPoints: "Interactive graph of services, calls, and databases." },
+        { mainPoints: "Anti-Pattern Detection", subPoints: "Find god services, chatty calls, cycles, shared DB writes, etc." },
+        { mainPoints: "Scenario Simulation", subPoints: "Run “what if” experiments on traffic, latency, and failures." },
+        { mainPoints: "Cost & Performance Analytics", subPoints: "Estimate impact on resources and cloud cost." },
+        { mainPoints: "Versioned Projects", subPoints: "Save multiple architecture versions and compare designs." },
+        { mainPoints: "Chat-Driven Interface", subPoints: "Ask questions in natural language, like ChatGPT, tailored to microservices." },
+      ],
+    },
+    {
+      part2: [
+        { mainPoints: "Do I need to deploy my services to use GO-SIM ?", subPoints: "No. You can work from architecture specs (YAML/JSON) before deployment." },
+        { mainPoints: "Is this free for students ?", subPoints: "Yes, there is a free tier suitable for academic projects." },
+        { mainPoints: "Can I export diagrams and reports ?", subPoints: "Yes, you can export graphs and summaries (PDF/PNG/JSON)." },
+        { mainPoints: "Is my code/architecture stored ?", subPoints: "Explain how you handle this (for prototype, just say locally / for demo)." },
       ],
     },
   ],
