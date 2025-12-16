@@ -1,6 +1,7 @@
 'use client';
 
-import { CircleSmall } from 'lucide-react';
+import Image from "next/image";
+import mark1 from '../../../images/icon/mark1.png';
 import { pricingConstants } from '../constant/page';
 
 interface PricingCardProps {
@@ -27,7 +28,7 @@ function PricingCard({ plan }: PricingCardProps) {
                         {plan === 'free' ? planData.subtitle : planData.title === 'Pro' ? '$12 / month' : '$29 / month'}
                     </span>
                     <br />
-                    <h1 className='text-sm  text-gray-300'>{planData.description}</h1>
+                    <h1 className='text-sm text-gray-300'>{planData.description}</h1>
                 </div>
             </div>
 
@@ -39,7 +40,13 @@ function PricingCard({ plan }: PricingCardProps) {
                 <div className="font-semibold">What you get,</div>
                 {features.map((feature, index) => (
                     <div key={index} className="flex items-start">
-                        <CircleSmall className="flex-shrink-0 mt-1" />
+                        <Image
+                            src={mark1}
+                            alt=""
+                            width={12}
+                            height={12}
+                            className="mr-2 flex-shrink-0 mt-1"
+                        />
                         <span className="ml-2 mt-2" dangerouslySetInnerHTML={{
                             __html: feature.replace(
                                 /\b(3|5|20|60|PNG|SVG|PDF|JSON|YAML|JSON|RPS|Pro|Team)\b/g,
