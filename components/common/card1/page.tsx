@@ -16,8 +16,7 @@ export default function Card1({
   points,
 }: Card1Props) {
   return (
-    <div className="h-full flex flex-col p-6 max-w-md mx-auto my-4">
-      {/* Fixed height header section */}
+    <div className="h-full flex flex-col">
       <div className="shrink-0 mb-6">
         {title && (
           <h2 className="text-sm font-bold text-white text-center min-h-5 flex items-center justify-center">
@@ -34,7 +33,6 @@ export default function Card1({
         {isUnderline && <div className="h-0.5 w-full bg-white mt-4" />}
       </div>
 
-      {/* Points list - takes remaining space */}
       {points && points.length > 0 && (
         <ul className="space-y-4 flex-1">
           {points.map((point, index) => (
