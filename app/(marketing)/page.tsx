@@ -34,6 +34,7 @@ export default function Home() {
         button1Route="/login"
         button2Name={"Explore the Dashboard"}
         button2Route="/get-started"
+        className="pb-40"
       />
     </div>
   );

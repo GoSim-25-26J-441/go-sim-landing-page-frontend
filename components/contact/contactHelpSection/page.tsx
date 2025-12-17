@@ -16,8 +16,12 @@ export default function ContactHelpSection() {
 
   return (
     <section className="text-white">
-      <div className="max-w-xl space-y-8 border-l-2 border-white px-10">
+      <div className="max-w-xl  flex flex-row gap-6">
         {/* Direct Contact Section */}
+        
+        <div className="w-1 bg-white animate-grow-center-y" />
+
+        <div className="space-y-8">
         <div className="space-y-4">
           <h2 className="text-xl font-bold mb-1">{'Direct contact'}</h2>
           <div className="h-px w-full bg-white mb-6"></div>
@@ -132,7 +136,25 @@ export default function ContactHelpSection() {
             </a>
           </div>
         </div>
+        </div>
       </div>
+
+      <style jsx>{`
+         @keyframes grow-center-y {
+          from {
+            transform: scaleY(0);
+            opacity: 0;
+          }
+          to {
+            transform: scaleY(1);
+            opacity: 1;
+          }
+        }
+        .animate-grow-center-y {
+          transform-origin: center;
+          animation: grow-center-y 1.2s ease-out forwards;
+        }
+      `}</style>
     </section>
   );
 }

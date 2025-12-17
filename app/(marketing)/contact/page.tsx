@@ -19,6 +19,7 @@ export default function Page() {
         description={
           "Questions about GO-SIM, your account, or the research? We’d love to hear from you."
         }
+        className="pb-40"
       />
       <div className="flex flex-col md:flex-row justify-center items-start">
         <ContactForm />

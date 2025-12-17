@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type Section5Props = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   buttonsVisible: boolean;
   button1Name?: string;
   button2Name?: string;
@@ -15,6 +15,7 @@ type Section5Props = {
   isLinkAvailable?: boolean;
   linkName?: string;
   linkRoute?: string;
+  className?:string;
 };
 
 export default function ButtonSet({
@@ -28,6 +29,7 @@ export default function ButtonSet({
   button2Route,
   linkName,
   linkRoute,
+  className
 }: Section5Props) {
 
 
@@ -36,7 +38,7 @@ export default function ButtonSet({
   r ? (r.startsWith("/") ? r : `/${r}`) : "/";
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-40">
+    <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 ${className}`}>
       <div className="flex flex-col justify-around md:flex-row w-full gap-8">
         {/* Left */}
         <div className="flex flex-col justify-center items-start">
@@ -48,12 +50,12 @@ export default function ButtonSet({
 
         {/* ✅ Mobile: horizontal line */}
         <div className="block md:hidden relative w-full h-px overflow-hidden">
-          <div className="absolute inset-0 bg-white/80 animate-grow-center-x" />
+          <div className="absolute inset-0 bg-white animate-grow-center-x" />
         </div>
 
         {/* ✅ Desktop: vertical line */}
-        <div className="hidden md:block relative w-px overflow-hidden">
-          <div className="absolute inset-y-0 left-0 w-0.5 bg-white/80 animate-grow-center-y" />
+        <div className="hidden md:block relative w-2 overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-0.5 bg-white animate-grow-center-y" />
         </div>
 
         {buttonsVisible && (

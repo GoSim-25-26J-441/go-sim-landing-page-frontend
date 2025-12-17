@@ -9,6 +9,35 @@ type Card1Props = {
   points?: string[];
 };
 
+const HIGHLIGHT = [
+  "YAML/JSON",
+  "detect dangerous patterns",
+  "Simulate workloads",
+  "GO-SIM parses services, endpoints, and dependencies.",
+  "Filter by service, database, or boundary.",
+  "Drill down into chat explanations and pattern details.",
+  "Export metrics and diagrams for your reports."
+] as const;
+
+function escapeRegExp(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function highlightText(text: string, terms: readonly string[]) {
+  const termSet = new Set(terms.map((t) => t.toLowerCase()));
+  const pattern = new RegExp(`(${terms.map(escapeRegExp).join("|")})`, "gi");
+
+  return text.split(pattern).map((chunk, i) =>
+    termSet.has(chunk.toLowerCase()) ? (
+      <span key={i} className="font-bold text-white">
+        {chunk}
+      </span>
+    ) : (
+      <span key={i}>{chunk}</span>
+    )
+  );
+}
+
 export default function Card1({
   title,
   description,
@@ -50,7 +79,7 @@ export default function Card1({
                 />
               </div>
               <span className="flex-1 text-white/80 font-normal text-xs leading-relaxed">
-                {point}
+                {highlightText(point, HIGHLIGHT)}
               </span>
             </li>
           ))}

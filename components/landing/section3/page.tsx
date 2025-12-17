@@ -161,7 +161,7 @@ export default function Section3({ title, description }: TitleProps) {
                 />
 
                 {/* Video Controls Overlay */}
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 to-transparent p-4">
                   <div className="flex items-center justify-between text-white text-sm">
                     <div className="flex items-center gap-3">
                       <button className="hover:text-gray-300 transition-colors">
