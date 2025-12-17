@@ -7,6 +7,7 @@ type Card1Props = {
   description?: string;
   isUnderline?: boolean;
   points?: string[];
+  className?:string;
 };
 
 const HIGHLIGHT = [
@@ -16,7 +17,14 @@ const HIGHLIGHT = [
   "GO-SIM parses services, endpoints, and dependencies.",
   "Filter by service, database, or boundary.",
   "Drill down into chat explanations and pattern details.",
-  "Export metrics and diagrams for your reports."
+  "Export metrics and diagrams for your reports.",
+  "Sample 1:",
+  "Sample 2:",
+  "small system ",
+  "clear and consistent",
+  "anti-pattern list",
+  "separate versions",
+  "Optional:"
 ] as const;
 
 function escapeRegExp(s: string) {
@@ -43,9 +51,10 @@ export default function Card1({
   description,
   isUnderline = false,
   points,
+  className
 }: Card1Props) {
   return (
-    <div className="h-full flex flex-col">
+    <div className={`h-full flex flex-col ${className}`}>
       <div className="shrink-0 mb-6">
         {title && (
           <h2 className="text-sm font-bold text-white text-center min-h-5 flex items-center justify-center">

@@ -15,7 +15,8 @@ type Section5Props = {
   isLinkAvailable?: boolean;
   linkName?: string;
   linkRoute?: string;
-  className?:string;
+  className?: string;
+  buttonClass?: string;
 };
 
 export default function ButtonSet({
@@ -29,16 +30,16 @@ export default function ButtonSet({
   button2Route,
   linkName,
   linkRoute,
-  className
+  className,
+  buttonClass,
 }: Section5Props) {
-
-
-  const router = useRouter()
-  const toPath = (r?: string) =>
-  r ? (r.startsWith("/") ? r : `/${r}`) : "/";
+  const router = useRouter();
+  const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
 
   return (
-    <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 ${className}`}>
+    <section
+      className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 ${className}`}
+    >
       <div className="flex flex-col justify-around md:flex-row w-full gap-8">
         {/* Left */}
         <div className="flex flex-col justify-center items-start">
@@ -60,14 +61,23 @@ export default function ButtonSet({
 
         {buttonsVisible && (
           <div className="flex flex-col justify-start gap-6">
-            <button onClick={() => router.push(toPath(button1Route))} className="px-6 py-3 bg-[#E5E7EB] text-black text-sm font-bold rounded-lg hover:bg-[#E5E7EB]/80 transition-all transform">
+            <button
+              onClick={() => router.push(toPath(button1Route))}
+              className="px-6 py-3 bg-[#E5E7EB] text-black text-sm font-bold rounded-lg hover:bg-[#E5E7EB]/80 transition-all transform"
+            >
               {button1Name}
             </button>
-            <button  onClick={() => router.push(toPath(button2Route))} className="px-6 py-3 bg-[#0F172A] text-[#D9D9D9] text-sm font-semibold rounded-lg hover:bg-[#0F172A]/80 transition-all">
+            <button
+              onClick={() => router.push(toPath(button2Route))}
+              className={`px-6 py-3 bg-[#0F172A] text-[#D9D9D9] text-sm font-semibold rounded-lg hover:bg-[#0F172A]/80 transition-all ${buttonClass}`}
+            >
               {button2Name}
             </button>
             {isLinkAvailable && (
-              <Link href={toPath(linkRoute)} className="flex underline items-center text-sm font-bold text-white mt-3 ml-1">
+              <Link
+                href={toPath(linkRoute)}
+                className="flex underline items-center text-sm font-bold text-white mt-3 ml-1"
+              >
                 {linkName}
                 <span className="inline-block mx-1">
                   <ArrowRightToLine size={12} />
