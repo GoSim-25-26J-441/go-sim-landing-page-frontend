@@ -7,6 +7,13 @@ import Section4 from "../../components/landing/section4/page";
 import { section1, section2, section3 } from "../../public/constant";
 
 export default function Home() {
+  const DASHBOARD =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
+  const returnTo = "/";
+
+  const signUpUrl = new URL("/signup", DASHBOARD);
+  signUpUrl.searchParams.set("returnTo", returnTo);
+
   return (
     <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">
       <HeroSection />
@@ -31,7 +38,7 @@ export default function Home() {
           "Create your first project in minutes and let ArcFind find the risks for you."
         }
         button1Name={"Get Started Free"}
-        button1Route="/login"
+        button1Route={signUpUrl.toString()}
         button2Name={"Explore the Dashboard"}
         button2Route="/get-started"
         className="pb-40"

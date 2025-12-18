@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html lang={locale} className="dark">
       <body className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black">
         <NextIntlClientProvider messages={messages}>
-          <TimedLoader ms={1500} Loader={Loading}>
+          <TimedLoader ms={1000} Loader={Loading}>
             {children}
           </TimedLoader>
         </NextIntlClientProvider>

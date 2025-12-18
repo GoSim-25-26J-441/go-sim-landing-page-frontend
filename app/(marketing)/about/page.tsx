@@ -8,6 +8,14 @@ import Section7 from "../../../components/about/section7/page";
 import ButtonSet from "../../../components/common/buttonSet/page";
 
 export default function Page() {
+
+  const DASHBOARD =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
+  const returnTo = "/";
+
+  const signUpUrl = new URL("/signup", DASHBOARD);
+  signUpUrl.searchParams.set("returnTo", returnTo);
+
   return (
     <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">
       <Section1
@@ -24,6 +32,8 @@ export default function Page() {
         linkName="See how it works"
         buttonsVisible={true}
         isLinkAvailable={true}
+        button1Route={signUpUrl.toString()}
+        button2Route="/pricing"
         className="pb-10"
       />
 
@@ -39,6 +49,8 @@ export default function Page() {
         description="Start with a sample architecture or upload your own service definitions to explore graphs, patterns, and simulations."
         button1Name="Try it free"
         button2Name="View documentation"
+        button1Route={signUpUrl.toString()}
+        button2Route="/docs"
         className="pb-40"
       />
     </div>

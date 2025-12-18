@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import logo from "../../images/logo/logo.png";
 import profile from "../../images/icon/profile.png";
@@ -19,6 +19,13 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const DASHBOARD =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
+  const returnTo = "/";
+
+  const logInUrl = new URL("/login", DASHBOARD);
+  logInUrl.searchParams.set("returnTo", returnTo);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md">
       <nav className="mx-auto max-w-8xl h-20 px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
@@ -30,7 +37,6 @@ export default function Navbar() {
 
         {/* Desktop - Centered with full space */}
         <div className="hidden md:flex items-center justify-center overflow-visible relative">
-
           <div className="relative w-full max-w-4xl h-16 flex items-center justify-center">
             <ul className="relative w-full h-full flex items-center justify-center">
               {links.map((l, index) => {
@@ -85,7 +91,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3 justify-end">
           <div className="flex items-center gap-2 px-4 py-2">
             <Link
-              href="/login"
+              href={logInUrl.toString()}
               className="text-sm font-bold text-gray-300 hover:text-white"
             >
               Sign In
@@ -109,7 +115,7 @@ export default function Navbar() {
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
-      
+
       {/* ... mobile menu ... */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 bg-black/80 backdrop-blur-md">

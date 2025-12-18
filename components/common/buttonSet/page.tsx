@@ -33,8 +33,27 @@ export default function ButtonSet({
   className,
   buttonClass,
 }: Section5Props) {
-  const router = useRouter();
+  const router = useRouter()
   const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
+
+  const go = (route?: string) => {
+    if (!route) return;
+
+    const normalized = route.replace(
+      /^([a-z][a-z0-9+\-.]*):\/(?!\/)/i,
+      "$1://"
+    );
+
+    try {
+      const url = new URL(normalized);
+      window.location.assign(url.toString());
+      return;
+    } catch {
+      router.push(toPath(route));
+    }
+  };
+
+   console.log("button1Route:", button1Route);
 
   return (
     <section
@@ -62,13 +81,13 @@ export default function ButtonSet({
         {buttonsVisible && (
           <div className="flex flex-col justify-start gap-6">
             <button
-              onClick={() => router.push(toPath(button1Route))}
+              onClick={() => go(button1Route)}
               className="px-6 py-3 bg-[#E5E7EB] text-black text-sm font-bold rounded-lg hover:bg-[#E5E7EB]/80 transition-all transform"
             >
               {button1Name}
             </button>
             <button
-              onClick={() => router.push(toPath(button2Route))}
+              onClick={() => go(button2Route)}
               className={`px-6 py-3 bg-[#0F172A] text-[#D9D9D9] text-sm font-semibold rounded-lg hover:bg-[#0F172A]/80 transition-all ${buttonClass}`}
             >
               {button2Name}

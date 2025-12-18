@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 class Particle {
   x: number;
@@ -53,20 +53,11 @@ class Particle {
   }
 }
 
-const Herosection = {
-  title: "ArcFind",
-  description: "Micro-service Architecture & Performance Assistant",
-  intro:
-    "Design, analyze, and simulate your microservice architecture before you deploy. Detect anti-patterns, visualize graphs, and estimate performance in one place.",
-  button1Name: "Get Started Free",
-  button2Name: "View Pricing",
-  requestText: "No credit card required | Built for students & engineers",
-};
-
 export default function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const router = useRouter();
   const t = useTranslations("HeroSectionInHome");
+  const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -156,6 +147,30 @@ export default function HeroSection() {
     };
   }, []);
 
+  const go = (route?: string) => {
+    if (!route) return;
+
+    const normalized = route.replace(
+      /^([a-z][a-z0-9+\-.]*):\/(?!\/)/i,
+      "$1://"
+    );
+
+    try {
+      const url = new URL(normalized);
+      window.location.assign(url.toString());
+      return;
+    } catch {
+      router.push(toPath(route));
+    }
+  };
+
+  const DASHBOARD =
+    process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
+  const returnTo = "/";
+
+  const signUpUrl = new URL("/signup", DASHBOARD);
+  signUpUrl.searchParams.set("returnTo", returnTo);
+
   return (
     <section className="w-full min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -188,7 +203,7 @@ export default function HeroSection() {
 
               <div className="flex flex-col gap-4 my-10 text-xs font-bold w-55 max-w-sm">
                 <button
-                  onClick={() => router.push("/get-started")}
+                  onClick={() => go(signUpUrl.toString())}
                   className="px-6 py-3 bg-[#E5E7EB] text-[#1F2937] rounded-lg hover:bg-[#E5E7EB]/90 transition-all transform w-full"
                 >
                   {t("button1Name")}
