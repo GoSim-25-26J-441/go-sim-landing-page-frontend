@@ -4,12 +4,14 @@ import Title from "../../../components/common/tittle/page";
 import ContactHelpSection from "../../../components/contact/contactHelpSection/page";
 import ContactForm from "../../../components/contact/form/page";
 
-export default function Page() {
-  const points = [
+ const points = [
     "New user? Start with the Getting started guide.",
     "Working on a thesis or FYP? Check the Research summary for technical details.",
     "Reporting a bug? Include browser, steps to reproduce, and screenshots when possible.",
   ];
+
+export default function Page() {
+
 
   return (
     <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">

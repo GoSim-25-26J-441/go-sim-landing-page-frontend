@@ -1,0 +1,10 @@
+{
+  "HeroSectionInHome": {
+    "title": "ArcFind",
+    "description": "Micro-service Architecture & Performance Assistant",
+    "intro": "Design, analyze, and simulate your microservice architecture before you deploy. Detect anti-patterns, visualize graphs, and estimate performance in one place.",
+    "button1Name": "Get Started Free",
+    "button2Name": "View Pricing",
+    "requestText": "No credit card required | Built for students & engineers"
+  }
+}

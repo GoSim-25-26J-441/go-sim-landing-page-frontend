@@ -10,7 +10,7 @@ export default async function MarketingLayout({ children }: { children: React.Re
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
-      {!hasConsent && <CookieConsent />}
+      {/* {!hasConsent && <CookieConsent />} */}
     </div>
   );
 }

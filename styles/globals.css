@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* ✅ Add these */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Sinhala";
+  src: url("/fonts/NotoSansSinhala.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Tamil";
+  src: url("/fonts/NotoSansTamil.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -8,6 +27,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* (optional) you can leave these, but they won't matter now */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -22,5 +43,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+html[lang="si"] body {
+  font-family: "Noto Sans Sinhala", Arial, Helvetica, sans-serif;
+}
+
+html[lang="ta"] body {
+  font-family: "Noto Sans Tamil", Arial, Helvetica, sans-serif;
 }

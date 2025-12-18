@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import {useTranslations} from "next-intl";
 
 class Particle {
   x: number;
@@ -52,9 +53,20 @@ class Particle {
   }
 }
 
+const Herosection = {
+  title: "ArcFind",
+  description: "Micro-service Architecture & Performance Assistant",
+  intro:
+    "Design, analyze, and simulate your microservice architecture before you deploy. Detect anti-patterns, visualize graphs, and estimate performance in one place.",
+  button1Name: "Get Started Free",
+  button2Name: "View Pricing",
+  requestText: "No credit card required | Built for students & engineers",
+};
+
 export default function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const router = useRouter();
+  const t = useTranslations("HeroSectionInHome");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -162,37 +174,35 @@ export default function HeroSection() {
 
             <div>
               <h1 className="text-5xl lg:text-8xl font-bold text-white mb-2">
-                {"ArcFind"}
+                {t("title")}
               </h1>
               <p className="text-xs font-normal text-white/80 tracking-wider">
-                {"Micro-service Architecture & Performance Assistant"}
+                {t("description")}
               </p>
             </div>
 
             <div>
               <p className="text-sm font-normal text-white leading-relaxed max-w-xl">
-                {
-                  "Design, analyze, and simulate your microservice architecture before you deploy. Detect anti-patterns, visualize graphs, and estimate performance in one place."
-                }
+                {t("intro")}
               </p>
 
-              <div className="flex flex-col gap-4 my-10 text-sm font-bold w-45 max-w-sm">
+              <div className="flex flex-col gap-4 my-10 text-xs font-bold w-55 max-w-sm">
                 <button
                   onClick={() => router.push("/get-started")}
                   className="px-6 py-3 bg-[#E5E7EB] text-[#1F2937] rounded-lg hover:bg-[#E5E7EB]/90 transition-all transform w-full"
                 >
-                  {"Get Started Free"}
+                  {t("button1Name")}
                 </button>
                 <button
                   onClick={() => router.push("/pricing")}
                   className="px-6 py-3 bg-[#7D7F86] text-white rounded-lg hover:bg-[#7D7F86]/80 transition-all w-full"
                 >
-                  {"View Pricing"}
+                  {t("button2Name")}
                 </button>
               </div>
 
               <p className="text-[10px] font-normal text-white/60">
-                {"No credit card required | Built for students & engineers"}
+                {t("requestText")}
               </p>
             </div>
           </div>

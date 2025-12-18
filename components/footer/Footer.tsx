@@ -7,6 +7,7 @@ import faqIcon from "../../images/icon/faq.png";
 import formIcon from "../../images/icon/form.png";
 import linkedinIcon from "../../images/icon/linkedin.png";
 import githubIcon from "../../images/icon/github.png";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 type Section = {
   title: string;
@@ -253,7 +254,8 @@ export default function Footer() {
               <span className="text-gray-700" aria-hidden="true">
                 ●
               </span>
-              <span className="text-gray-600">EN</span>
+              
+              <LanguageSwitcher />
             </nav>
           </div>
         </div>
