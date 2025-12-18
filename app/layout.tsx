@@ -4,6 +4,8 @@ import "../styles/theme.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import TimedLoader from "../components/common/timedLoader/TimedLoader";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "ArcFind",
@@ -22,7 +24,9 @@ export default async function RootLayout({
     <html lang={locale} className="dark">
       <body className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <TimedLoader ms={1500} Loader={Loading}>
+            {children}
+          </TimedLoader>
         </NextIntlClientProvider>
       </body>
     </html>

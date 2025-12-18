@@ -6,30 +6,26 @@ import logo from "../images/logo/logo.png";
 export default function Loading() {
   return (
     <div className="min-h-dvh grid place-items-center bg-linear-to-b from-black/10 to-black">
-      <div className="relative">
-        <Image 
-          src={logo} 
-          alt="GO-SIM Logo" 
-          width={50} 
-          height={50} 
-          className="animate-float-rotate" 
-        />
+      <div className="relative animate-pulse-glow">
+        <Image src={logo} alt="GO-SIM Logo" width={50} height={50} />
       </div>
-      
+
       <style jsx>{`
-        @keyframes float-rotate {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
+        @keyframes pulse-glow {
+          0%,
+          100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            transform: scale(1);
           }
-          33% {
-            transform: translateY(-10px) rotate(5deg);
-          }
-          66% {
-            transform: translateY(-5px) rotate(-5deg);
+          50% {
+            opacity: 0.8;
+            filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.8));
+            transform: scale(1.05);
           }
         }
-        .animate-float-rotate {
-          animation: float-rotate 3s ease-in-out infinite;
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
         }
       `}</style>
     </div>
