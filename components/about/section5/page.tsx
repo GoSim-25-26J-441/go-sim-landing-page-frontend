@@ -85,6 +85,7 @@ function StepCard({ title, step, point }: StepCardProps) {
 }
 
 export default function Section5() {
+
   return (
     <section className="relative flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <Title title="From definition to insight in four steps" isUnderline />

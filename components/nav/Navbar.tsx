@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import logo from "../../images/logo/logo.png";
 import profile from "../../images/icon/profile.png";
@@ -23,7 +23,7 @@ export default function Navbar() {
     process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
   const returnTo = "/";
 
-  const logInUrl = new URL("/login", DASHBOARD);
+  const logInUrl = new URL("/", DASHBOARD);
   logInUrl.searchParams.set("returnTo", returnTo);
 
   return (

@@ -8,7 +8,6 @@ import Section7 from "../../../components/about/section7/page";
 import ButtonSet from "../../../components/common/buttonSet/page";
 
 export default function Page() {
-
   const DASHBOARD =
     process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
   const returnTo = "/";
@@ -34,12 +33,17 @@ export default function Page() {
         isLinkAvailable={true}
         button1Route={signUpUrl.toString()}
         button2Route="/pricing"
+        linkRoute={"#step-section"}
         className="pb-10"
       />
 
       <Section3 />
       <Section4 />
-      <Section5 />
+
+      <div id="step-section" className="scroll-mt-24">
+        <Section5 />
+      </div>
+
       <Section6 />
       <Section7 />
 

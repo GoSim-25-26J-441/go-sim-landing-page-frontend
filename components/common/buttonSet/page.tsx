@@ -33,7 +33,7 @@ export default function ButtonSet({
   className,
   buttonClass,
 }: Section5Props) {
-  const router = useRouter()
+  const router = useRouter();
   const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
 
   const go = (route?: string) => {
@@ -53,7 +53,27 @@ export default function ButtonSet({
     }
   };
 
-   console.log("button1Route:", button1Route);
+  const toHref = (r?: string) => {
+    if (!r) return "/";
+    if (r.startsWith("http://") || r.startsWith("https://")) return r;
+    if (r.startsWith("#")) return r; // same-page hash
+    return r.startsWith("/") ? r : `/${r}`; // internal route
+  };
+
+  const onHashClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  if (!linkRoute?.startsWith("#")) return;
+
+  const id = linkRoute.slice(1);
+  const el = document.getElementById(id);
+
+  if (el) {
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    // ✅ do nothing (stay on this page)
+    e.preventDefault();
+  }
+};
 
   return (
     <section
@@ -94,7 +114,7 @@ export default function ButtonSet({
             </button>
             {isLinkAvailable && (
               <Link
-                href={toPath(linkRoute)}
+                href={toHref(linkRoute)} onClick={onHashClick}
                 className="flex underline items-center text-sm font-bold text-white mt-3 ml-1"
               >
                 {linkName}
