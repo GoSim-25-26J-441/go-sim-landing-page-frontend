@@ -1,4 +1,3 @@
-import CookieConsent from "../../components/common/cookies/CookieConsent";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/nav/Navbar";
 
