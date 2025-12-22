@@ -5,15 +5,6 @@ on:
     branches:
       - main
 
-# 1. Required permissions for OIDC and reading repo contents
-permissions:
-  id-token: write   # Required for requesting the JWT from GitHub
-  contents: read    # Required for actions/checkout
-
-env:
-  AWS_REGION: $${{ secrets.AWS_REGION }}
-  S3_BUCKET: ${{ secrets.S3_BUCKET }}
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -49,26 +40,29 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      # 2. Inject environment variables for the build
-      - name: Generate .env from Secrets
+      - name: Generate .env.local from Secrets
         run: |
           echo "NEXT_PUBLIC_DASHBOARD_URL=${{ secrets.NEXT_PUBLIC_DASHBOARD_URL }}" > .env
+          # Add more envs if needed, e.g.:
+          # echo "NEXT_PUBLIC_ANOTHER_VAR=${{ secrets.ANOTHER_VAR }}" >> .env.local
 
-      - name: Build Project
+      - name: Build Project (static export to out/)
         run: npm run build
 
-      # 3. Assume AWS Role using OIDC
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::222634381337:role/s3-static-update-role
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
-      # 4. Sync files to S3
       - name: Deploy to S3
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: |
           if [ -z "${S3_BUCKET}" ]; then
-            echo "Error: Repository secret S3_BUCKET is not set"; exit 1;
+            echo "Error: Repository variable S3_BUCKET is not set"; exit 1;
           fi
           aws s3 sync ./out "s3://${S3_BUCKET}" --delete
+
+
