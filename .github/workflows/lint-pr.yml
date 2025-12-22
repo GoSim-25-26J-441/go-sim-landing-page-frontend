@@ -26,6 +26,8 @@ jobs:
         run: npm run lint
 
   build:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
