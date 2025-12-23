@@ -52,7 +52,8 @@ jobs:
       # 2. Inject environment variables for the build
       - name: Generate .env from Secrets
         run: |
-          echo "NEXT_PUBLIC_DASHBOARD_URL=${{ secrets.NEXT_PUBLIC_DASHBOARD_URL }}" > .env
+          echo "NEXT_PUBLIC_DASHBOARD_URL=${{ secrets.NEXT_PUBLIC_DASHBOARD_URL }}" >> .env
+          echo "NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}" >> .env
 
       - name: Build Project
         run: npm run build
