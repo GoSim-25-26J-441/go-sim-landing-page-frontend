@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 	];
 
 	return routeInfo.map(({ path, lastModified, changeFrequency }) => ({
-		url: `${baseUrl}${path}/`,
+		url: path === "" ? baseUrl : `${baseUrl}${path}/`,
 		lastModified,
 		changeFrequency,
 		priority: path === "" ? 1 : 0.8,
