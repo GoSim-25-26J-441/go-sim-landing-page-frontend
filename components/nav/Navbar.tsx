@@ -40,9 +40,17 @@ export default function Navbar() {
           <div className="relative w-full max-w-4xl h-16 flex items-center justify-center">
             <ul className="relative w-full h-full flex items-center justify-center">
               {links.map((l, index) => {
-                const currentIndex = links.findIndex(
-                  (x) => x.href === pathname
-                );
+                // Fixed: Check if current pathname matches or starts with the link href
+                const isActive = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
+                let currentIndex = links.findIndex((x) => {
+                  return pathname === x.href || (x.href !== "/" && pathname.startsWith(x.href));
+                });
+                
+                // If no match found (user is on a page not in nav), default to Home (index 0)
+                if (currentIndex === -1) {
+                  currentIndex = 0;
+                }
+                
                 const total = links.length;
                 let distance = index - currentIndex;
                 if (distance > total / 2) distance -= total;
@@ -73,7 +81,7 @@ export default function Navbar() {
                       className={`font-medium whitespace-nowrap block ${
                         styles.size
                       } transition-colors ${
-                        pathname === l.href
+                        isActive
                           ? "text-white"
                           : "text-gray-300 hover:text-white"
                       }`}
@@ -116,37 +124,60 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* ... mobile menu ... */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-black/80 backdrop-blur-md">
-          <div className="px-4 py-4 space-y-3">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-base font-medium rounded-lg transition-colors ${
-                  pathname === l.href
-                    ? "text-blue-400 bg-white/10"
-                    : "text-gray-300 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
+        <div className="md:hidden bg-black/60 opacity-70 backdrop-blur-xl animate-slideDown rounded-b-lg">
+          <div className="px-6 py-8">
+            {/* Navigation Links */}
+            <nav className="space-y-1 mb-8">
+              {links.map((l) => {
+                const isActive = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`
+                      group block px-4 py-3 text-sm font-medium rounded-xl
+                      transition-all duration-200
+                      ${isActive
+                        ? "text-white bg-white/5"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                      }
+                    `}
+                  >
+                    <span className="flex items-center justify-between">
+                      {l.label}
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
+            </nav>
 
-            <div className="pt-4 space-y-2 border-t border-white/10">
+            {/* Action Buttons */}
+            <div className="space-y-3">
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-center"
+                className="
+                  block px-4 py-2 text-sm font-bold text-center
+                  text-gray-300 hover:text-white
+                  rounded-xl transition-colors duration-200
+                "
               >
                 Log in
               </Link>
               <Link
                 href="/get-started"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-base font-medium text-white bg-white/10 hover:bg-white/20 rounded-lg text-center border border-white/20"
+                className="
+                  block px-4 py-3 text-sm font-bold text-center
+                  text-[#1F2937] bg-[#E5E7EB] hover:bg-[#E5E7EB]/90
+                  rounded-md transition-all duration-200
+                  active:scale-95
+                "
               >
                 Get Started
               </Link>
@@ -154,6 +185,23 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-slideDown {
+          animation: slideDown 0.2s ease-out;
+        }
+      `}</style>
     </header>
   );
 }
