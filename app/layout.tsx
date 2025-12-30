@@ -10,6 +10,9 @@ import Loading from "./loading";
 export const metadata: Metadata = {
   title: "ArcFind",
   description: "Software for simulating and analyzing ARCs.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default async function RootLayout({
