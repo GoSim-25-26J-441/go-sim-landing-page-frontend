@@ -125,7 +125,7 @@ export default function Navbar() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/95 backdrop-blur-xl animate-slideDown">
+        <div className="md:hidden bg-black/60 opacity-70 backdrop-blur-xl animate-slideDown rounded-b-lg">
           <div className="px-6 py-8">
             {/* Navigation Links */}
             <nav className="space-y-1 mb-8">
