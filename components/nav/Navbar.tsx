@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,6 +18,12 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navReady, setNavReady] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setNavReady(true), 80);
+    return () => clearTimeout(t);
+  }, []);
 
   const DASHBOARD =
     process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "http://localhost:3001";
@@ -29,7 +35,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md">
       <nav className="mx-auto max-w-8xl h-20 px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
-        <div>
+        <div className="nav-logo">
           <Link href="/" aria-label="GO-SIM Home">
             <Image src={logo} alt="GO-SIM Logo" width={32} height={32} />
           </Link>
@@ -68,11 +74,14 @@ export default function Navbar() {
                 return (
                   <li
                     key={l.href}
-                    className="absolute left-1/2 top-1/2 -translate-y-1/2"
+                    className="absolute left-1/2 top-1/2 -translate-y-1/2 nav-link-item"
                     style={{
-                      transform: `translateX(calc(-50% + ${translateX}px)) scale(${styles.scale})`,
-                      opacity: styles.opacity,
-                      transition: "all 0.6s cubic-bezier(0.4,0,0.2,1)",
+                      transform: navReady
+                        ? `translate(-50%, -50%) translateX(${translateX}px) scale(${styles.scale})`
+                        : "translate(-50%, -50%) scale(0.7)",
+                      opacity: navReady ? styles.opacity : 0,
+                      transition: "all 0.65s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transitionDelay: navReady ? `${absDistance * 0.06}s` : "0s",
                       zIndex: 10 - absDistance,
                     }}
                   >
@@ -96,11 +105,11 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden md:flex items-center gap-3 justify-end">
+        <div className="hidden md:flex items-center gap-3 justify-end nav-ctas">
           <div className="flex items-center gap-2 px-4 py-2">
             <Link
               href={logInUrl.toString()}
-              className="text-sm font-bold text-gray-300 hover:text-white"
+              className="text-sm font-bold text-gray-300 hover:text-white transition-colors duration-200"
             >
               Sign In
             </Link>
@@ -108,7 +117,7 @@ export default function Navbar() {
           </div>
           <Link
             href="/get-started"
-            className="px-3 py-2 text-sm font-bold text-[#1F2937] bg-[#E5E7EB] hover:bg-[#E5E7EB]/80 rounded-sm"
+            className="px-3 py-2 text-sm font-bold text-[#1F2937] bg-[#E5E7EB] hover:bg-[#E5E7EB]/80 rounded-sm transition-colors duration-200"
           >
             Get Started
           </Link>
@@ -187,6 +196,27 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
+        /* Logo: fade + slide from left */
+        .nav-logo {
+          opacity: 0;
+          transform: translateX(-12px);
+          animation: nav-fade-slide 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+        }
+
+        /* CTAs: fade + slide from right */
+        .nav-ctas {
+          opacity: 0;
+          transform: translateX(16px);
+          animation: nav-fade-slide 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+        }
+
+        @keyframes nav-fade-slide {
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
         @keyframes slideDown {
           from {
             opacity: 0;

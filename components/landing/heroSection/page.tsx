@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 class Particle {
@@ -53,11 +53,30 @@ class Particle {
   }
 }
 
+const CANVAS_DELAY_MS = 2800;   // Canvas appears when line is vertical in middle
+const LINKS_DELAY_MS = 800;     // Links appear after canvas shows
+
 export default function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [showCanvas, setShowCanvas] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
   const router = useRouter();
   const t = useTranslations("HeroSectionInHome");
   const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setShowCanvas(true), CANVAS_DELAY_MS);
+    const t2 = setTimeout(() => setShowLinks(true), CANVAS_DELAY_MS + LINKS_DELAY_MS);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
+
+  const showLinksRef = useRef(false);
+  useEffect(() => {
+    showLinksRef.current = showLinks;
+  }, [showLinks]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -100,6 +119,11 @@ export default function HeroSection() {
       for (const p of particles) {
         p.update(w, h);
         p.draw(ctx, w, h);
+      }
+
+      if (!showLinksRef.current) {
+        rafId = requestAnimationFrame(animate);
+        return;
       }
 
       for (let i = 0; i < particles.length; i++) {
@@ -172,51 +196,57 @@ export default function HeroSection() {
   signUpUrl.searchParams.set("returnTo", returnTo);
 
   return (
-    <section className="w-full min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="w-full min-h-[calc(100vh-4rem)] flex items-center overflow-hidden relative">
+      {/* Line: horizontal across, left & right shrink to middle, then vertical line */}
+      <div className="hero-line-wrap">
+        <div className="hero-line-left" />
+        <div className="hero-line-right" />
+        <div className="hero-line-vertical" />
+      </div>
+
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center py-10 lg:py-0">
-          {/* Left */}
-          <div className="relative h-80 sm:h-[400px] lg:h-[560px]">
+          {/* Left - canvas fades in after delay */}
+          <div
+            className={`relative h-80 sm:h-[400px] lg:h-[560px] transition-opacity duration-1000 ${
+              showCanvas ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <canvas ref={canvasRef} className="w-full h-full rounded-2xl" />
           </div>
 
-          {/* Right */}
-          <div className="flex flex-col justify-between space-y-8 pl-10 h-full relative overflow-hidden">
-            <div
-              className="absolute left-0 w-0.5 bg-white animate-grow-center"
-              style={{ height: "100%" }}
-            ></div>
-
+          {/* Right - text. Line is in hero-line-wrap (section level). */}
+          <div className="flex flex-col justify-between space-y-8 pl-4 md:pl-10 h-full relative">
             <div>
-              <h1 className="text-5xl lg:text-8xl font-bold text-white mb-2">
+              <h1 className="hero-title text-5xl lg:text-8xl font-bold text-white mb-2">
                 {t("title")}
               </h1>
-              <p className="text-xs font-normal text-white/80 tracking-wider">
+              <p className="hero-desc text-xs font-normal text-white/80 tracking-wider">
                 {t("description")}
               </p>
             </div>
 
             <div>
-              <p className="text-sm font-normal text-white leading-relaxed max-w-xl">
+              <p className="hero-intro text-sm font-normal text-white leading-relaxed max-w-xl">
                 {t("intro")}
               </p>
 
-              <div className="flex flex-col gap-4 my-10 text-xs font-bold w-55 max-w-sm">
+              <div className="flex flex-col gap-4 my-10 text-xs font-bold w-55 max-w-sm hero-buttons">
                 <button
                   onClick={() => go(signUpUrl.toString())}
-                  className="px-6 py-3 bg-[#E5E7EB] text-[#1F2937] rounded-lg hover:bg-[#E5E7EB]/90 transition-all transform w-full"
+                  className="hero-btn hero-btn-1 px-6 py-3 bg-[#E5E7EB] text-[#1F2937] rounded-lg hover:bg-[#E5E7EB]/90 transition-all transform w-full"
                 >
                   {t("button1Name")}
                 </button>
                 <button
                   onClick={() => router.push("/pricing")}
-                  className="px-6 py-3 bg-[#7D7F86] text-white rounded-lg hover:bg-[#7D7F86]/80 transition-all w-full"
+                  className="hero-btn hero-btn-2 px-6 py-3 bg-[#7D7F86] text-white rounded-lg hover:bg-[#7D7F86]/80 transition-all w-full"
                 >
                   {t("button2Name")}
                 </button>
               </div>
 
-              <p className="text-[10px] font-normal text-white/60">
+              <p className="hero-request text-[10px] font-normal text-white/60">
                 {t("requestText")}
               </p>
             </div>
@@ -225,18 +255,164 @@ export default function HeroSection() {
       </div>
 
       <style jsx>{`
-        @keyframes grow-center {
-          from {
-            height: 0%;
-            opacity: 0;
-          }
-          to {
-            height: 100%;
+        /* Left half shrinks right-to-center, right half shrinks left-to-center, then vertical line */
+        .hero-line-wrap {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .hero-line-left {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 50vw;
+          height: 2px;
+          margin-top: -1px;
+          background: rgba(255, 255, 255, 0.95);
+          transform-origin: right center;
+          animation: hero-line-shrink 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        .hero-line-right {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          width: 50vw;
+          height: 2px;
+          margin-top: -1px;
+          background: rgba(255, 255, 255, 0.95);
+          transform-origin: left center;
+          animation: hero-line-shrink 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        @keyframes hero-line-shrink {
+          0%, 15% {
             opacity: 1;
+            transform: scaleX(1);
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+          }
+          50%, 100% {
+            opacity: 1;
+            transform: scaleX(0);
           }
         }
-        .animate-grow-center {
-          animation: grow-center 1.5s ease-out forwards;
+
+        .hero-line-vertical {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 2px;
+          height: 80vh;
+          margin-left: -1px;
+          margin-top: -40vh;
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.95) 20%,
+            rgba(255, 255, 255, 0.95) 80%,
+            rgba(255, 255, 255, 0.2)
+          );
+          transform-origin: center center;
+          animation: hero-line-vertical 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        @keyframes hero-line-vertical {
+          0%, 52% {
+            opacity: 0;
+            transform: scaleY(0);
+          }
+          53% {
+            opacity: 1;
+            transform: scaleY(0);
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+          }
+          100% {
+            opacity: 1;
+            transform: scaleY(1);
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+              drop-shadow(0 0 40px rgba(255, 255, 255, 0.25));
+          }
+        }
+
+        @media (max-width: 1023px) {
+          .hero-line-left,
+          .hero-line-right {
+            animation: hero-line-shrink-mobile 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+          }
+          .hero-line-vertical {
+            animation: none;
+            display: none;
+          }
+        }
+
+        @keyframes hero-line-shrink-mobile {
+          0% {
+            opacity: 0;
+            transform: scaleX(0.3);
+          }
+          100% {
+            opacity: 1;
+            transform: scaleX(1);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+          }
+        }
+
+        /* Canvas and text appear when line is vertical in middle (~2.8s). */
+        .hero-title {
+          opacity: 0;
+          transform: translateY(24px);
+          animation: fade-slide-up 1s cubic-bezier(0.4, 0, 0.2, 1) 2.9s forwards;
+        }
+
+        .hero-desc {
+          opacity: 0;
+          transform: translateY(16px);
+          animation: fade-slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 3.2s forwards;
+        }
+
+        .hero-intro {
+          opacity: 0;
+          transform: translateY(16px);
+          animation: fade-slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 3.5s forwards;
+        }
+
+        .hero-btn {
+          opacity: 0;
+          transform: translateX(-48px);
+        }
+
+        .hero-btn-1 {
+          animation: slide-from-line 0.8s cubic-bezier(0.4, 0, 0.2, 1) 4s forwards;
+        }
+
+        .hero-btn-2 {
+          animation: slide-from-line 0.8s cubic-bezier(0.4, 0, 0.2, 1) 4.2s forwards;
+        }
+
+        .hero-request {
+          opacity: 0;
+          transform: translateY(8px);
+          animation: fade-slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 4.5s forwards;
+        }
+
+        @keyframes slide-from-line {
+          from {
+            opacity: 0;
+            transform: translateX(-48px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fade-slide-up {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </section>
