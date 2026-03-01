@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Card3 from "../../common/card3/page";
 import Title from "../../common/tittle/page";
 
@@ -31,13 +32,30 @@ const points = [
 ];
 
 export default function Section4() {
+  const ref = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ob = new IntersectionObserver(
+      ([e]) => { if (e?.isIntersecting) setIsInView(true); },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+    );
+    ob.observe(el);
+    return () => ob.disconnect();
+  }, []);
+
   return (
-    <section className="flex flex-col justify-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <Title title="Core capabilities" isUnderline={true} />
+    <section ref={ref} className={`flex flex-col justify-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 about-s4 ${isInView ? "about-s4-visible" : ""}`}>
+      <div className="about-s4-title">
+        <Title title="Core capabilities" isUnderline={false} className="mb-2" />
+        <div className="about-s4-underline" />
+      </div>
 
       <div className="flex flex-col md:flex-row justify-center items-center gap-0">
         {points.map((point, index) => (
-          <div key={index} className="flex flex-col md:flex-row items-center">
+          <div key={index} className={`about-s4-card flex flex-col md:flex-row items-center`} style={{ animationDelay: `${index * 0.15}s` }}>
             {/* Card */}
             <Card3
               title={point.title}
@@ -64,6 +82,23 @@ export default function Section4() {
       </div>
 
       <style jsx>{`
+        .about-s4-title :global(h1) { clip-path: inset(0 100% 0 0); }
+        .about-s4-visible .about-s4-title :global(h1) {
+          animation: about-reveal-lr 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .about-s4-underline {
+          height: 2px; width: 0; margin-top: 0.5rem; margin-bottom: 2rem; background: white; display: block;
+        }
+        .about-s4-visible .about-s4-underline {
+          animation: about-underline 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        }
+        .about-s4-card { opacity: 0; transform: translateY(24px); }
+        .about-s4-visible .about-s4-card {
+          animation: about-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes about-reveal-lr { to { clip-path: inset(0 0 0 0); } }
+        @keyframes about-underline { to { width: 100%; } }
+        @keyframes about-fade-up { to { opacity: 1; transform: translateY(0); } }
         @keyframes grow-center-y {
           from {
             transform: scaleY(0);
