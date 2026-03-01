@@ -20,7 +20,7 @@ export const pricingConstants = {
     pro: {
       title: "Pro",
       subtitle: "$12 / month",
-      description: "per user (mock price for UI)",
+      description: "per user",
       for: "Most popular",
       descriptionText:
         "For individual engineers who want full simulations and deeper analysis.",
@@ -30,7 +30,7 @@ export const pricingConstants = {
     team: {
       title: "Team",
       subtitle: "$29 / month",
-      description: "per team (mock price for UI)",
+      description: "per team",
       for: "For teams & labs",
       descriptionText:
         "Share projects across a team, standardize architecture reviews, and track changes.",
