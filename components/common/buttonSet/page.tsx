@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { ArrowRightToLine } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -34,6 +35,21 @@ export default function ButtonSet({
   buttonClass,
 }: Section5Props) {
   const router = useRouter();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const ob = new IntersectionObserver(
+      ([e]) => {
+        if (e?.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+    );
+    ob.observe(el);
+    return () => ob.disconnect();
+  }, []);
   const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
 
   const go = (route?: string) => {
@@ -77,29 +93,30 @@ export default function ButtonSet({
 
   return (
     <section
+      ref={sectionRef}
       className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 ${className}`}
     >
-      <div className="flex flex-col justify-around md:flex-row w-full gap-8">
-        {/* Left */}
-        <div className="flex flex-col justify-center items-start">
+      <div className={`flex flex-col justify-around md:flex-row w-full gap-8 buttonset-container ${isInView ? "buttonset-visible" : ""}`}>
+        {/* Left - text: grow left to right */}
+        <div className="buttonset-text flex flex-col justify-center items-start">
           <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight">
             {title}
           </h2>
           <p className="text-sm text-white/60">{description}</p>
         </div>
 
-        {/* ✅ Mobile: horizontal line */}
+        {/* Mobile: horizontal line */}
         <div className="block md:hidden relative w-full h-px overflow-hidden">
-          <div className="absolute inset-0 bg-white animate-grow-center-x" />
+          <div className={`absolute inset-0 bg-white buttonset-line-x origin-center ${isInView ? "buttonset-line-x-visible" : ""}`} />
         </div>
 
-        {/* ✅ Desktop: vertical line */}
+        {/* Desktop: vertical line - grow from middle up and down */}
         <div className="hidden md:block relative w-2 overflow-hidden">
-          <div className="absolute inset-y-0 left-0 w-0.5 bg-white animate-grow-center-y" />
+          <div className={`absolute inset-y-0 left-0 w-0.5 bg-white buttonset-line-y origin-center ${isInView ? "buttonset-line-y-visible" : ""}`} />
         </div>
 
         {buttonsVisible && (
-          <div className="flex flex-col justify-start gap-6">
+          <div className="buttonset-buttons flex flex-col justify-start gap-6">
             <button
               onClick={() => go(button1Route)}
               className="px-6 py-3 bg-[#E5E7EB] text-black text-sm font-bold rounded-lg hover:bg-[#E5E7EB]/80 transition-all transform"
@@ -128,33 +145,56 @@ export default function ButtonSet({
       </div>
 
       <style jsx>{`
-        @keyframes grow-center-y {
-          from {
-            transform: scaleY(0);
-            opacity: 0;
+        /* Text: grow left to right */
+        .buttonset-text {
+          clip-path: inset(0 100% 0 0);
+        }
+        .buttonset-visible .buttonset-text {
+          animation: buttonset-text-reveal 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes buttonset-text-reveal {
+          to {
+            clip-path: inset(0 0 0 0);
           }
+        }
+
+        /* Vertical line: grow from middle up and down */
+        .buttonset-line-y {
+          transform: scaleY(0);
+        }
+        .buttonset-line-y-visible {
+          animation: buttonset-line-y-grow 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        }
+        @keyframes buttonset-line-y-grow {
           to {
             transform: scaleY(1);
-            opacity: 1;
           }
         }
-        @keyframes grow-center-x {
-          from {
-            transform: scaleX(0);
-            opacity: 0;
-          }
+
+        /* Mobile: horizontal line */
+        .buttonset-line-x {
+          transform: scaleX(0);
+        }
+        .buttonset-line-x-visible {
+          animation: buttonset-line-x-grow 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        }
+        @keyframes buttonset-line-x-grow {
           to {
             transform: scaleX(1);
-            opacity: 1;
           }
         }
-        .animate-grow-center-y {
-          transform-origin: center;
-          animation: grow-center-y 1.2s ease-out forwards;
+
+        /* Buttons: come from vertical line, left to right */
+        .buttonset-buttons {
+          clip-path: inset(0 100% 0 0);
         }
-        .animate-grow-center-x {
-          transform-origin: center;
-          animation: grow-center-x 1.2s ease-out forwards;
+        .buttonset-visible .buttonset-buttons {
+          animation: buttonset-buttons-reveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+        }
+        @keyframes buttonset-buttons-reveal {
+          to {
+            clip-path: inset(0 0 0 0);
+          }
         }
       `}</style>
     </section>

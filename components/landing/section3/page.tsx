@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Title from "../../common/tittle/page";
 import { ArrowRightToLine, Play } from "lucide-react";
 import Card2, { Card2Props } from "../../common/card2/page";
@@ -90,23 +90,41 @@ const steps: Card2Props[] = [
 
 export default function Section3({ title, description }: TitleProps) {
   const [activeStep, setActiveStep] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
   const currentStep = steps[activeStep];
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const ob = new IntersectionObserver(
+      ([e]) => {
+        if (e?.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+    );
+    ob.observe(el);
+    return () => ob.disconnect();
+  }, []);
+
   return (
-    <div className="max-w-full mx-auto mb-20">
-      <Title
-        title={title}
-        isUnderline={true}
-        description={description}
-        className={"max-w-6xl mx-10 md:mx-auto"}
-      />
-      <div className="bg-[#E5E7EB] w-full pb-10 md:pb-0">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-10 items-center">
+    <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+      <div className={`section3-title ${isInView ? "section3-visible" : ""}`}>
+        <div className="section3-title-text">
+          <Title title={title} isUnderline={false} description={description} className="mb-2" />
+        </div>
+        <div className="section3-title-underline" />
+      </div>
+      <div className="relative overflow-hidden bg-[#E5E7EB] rounded-lg pb-10 md:pb-0">
+       
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className={`grid lg:grid-cols-3 gap-10 items-center section3-content ${isInView ? "section3-content-visible" : ""}`}>
 
-            <Card2 {...steps[activeStep]} />
+            <div className="section3-card">
+              <Card2 {...steps[activeStep]} />
+            </div>
 
-            <div className="flex items-center w-full justify-center">
+            <div className="section3-steps flex items-center w-full justify-center">
               <div className="flex items-center justify-between">
                 {steps.map((step, index) => (
                   <div key={step.step} className="flex items-center">
@@ -134,7 +152,7 @@ export default function Section3({ title, description }: TitleProps) {
               </div>
             </div>
 
-            <div className="relative w-full h-full flex flex-col justify-center px-4">
+            <div className="section3-video relative w-full h-full flex flex-col justify-center px-4">
               <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
                 {/* Video Placeholder - Replace with actual YouTube embed */}
                 <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-gray-800 to-gray-900">
@@ -198,6 +216,70 @@ export default function Section3({ title, description }: TitleProps) {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        /* Title + description: left-to-right reveal */
+        .section3-title-text {
+          clip-path: inset(0 100% 0 0);
+        }
+        .section3-visible .section3-title-text {
+          animation: section3-reveal-lr 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes section3-reveal-lr {
+          to {
+            clip-path: inset(0 0 0 0);
+          }
+        }
+
+        /* Underline: grow left to right */
+        .section3-title-underline {
+          height: 2px;
+          margin-top: 0.5rem;
+          margin-bottom: 2rem;
+          background: white;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .section3-visible .section3-title-underline {
+          animation: section3-underline-grow 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+        }
+        @keyframes section3-underline-grow {
+          to {
+            transform: scaleX(1);
+          }
+        }
+        .section3-center-line-visible {
+          animation: section3-line-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+        @keyframes section3-line-expand {
+          to {
+            transform: scaleY(1);
+          }
+        }
+
+        /* Steps content: fade in after line */
+        .section3-card,
+        .section3-steps,
+        .section3-video {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        .section3-content-visible .section3-card {
+          animation: section3-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+        }
+        .section3-content-visible .section3-steps {
+          animation: section3-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+        }
+        .section3-content-visible .section3-video {
+          animation: section3-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+        }
+        @keyframes section3-fade-up {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }

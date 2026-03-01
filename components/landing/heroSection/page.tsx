@@ -65,8 +65,11 @@ export default function HeroSection() {
   const toPath = (r?: string) => (r ? (r.startsWith("/") ? r : `/${r}`) : "/");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setShowCanvas(true), CANVAS_DELAY_MS);
-    const t2 = setTimeout(() => setShowLinks(true), CANVAS_DELAY_MS + LINKS_DELAY_MS);
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    const canvasDelay = isMobile ? 0 : CANVAS_DELAY_MS;
+    const linksDelay = isMobile ? LINKS_DELAY_MS : CANVAS_DELAY_MS + LINKS_DELAY_MS;
+    const t1 = setTimeout(() => setShowCanvas(true), canvasDelay);
+    const t2 = setTimeout(() => setShowLinks(true), linksDelay);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -205,7 +208,7 @@ export default function HeroSection() {
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center py-10 lg:py-0">
+        <div className="grid grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-2 gap-12 items-center py-10 lg:py-0 min-h-[70vh]">
           {/* Left - canvas fades in after delay */}
           <div
             className={`relative h-80 sm:h-[400px] lg:h-[560px] transition-opacity duration-1000 ${
@@ -215,8 +218,9 @@ export default function HeroSection() {
             <canvas ref={canvasRef} className="w-full h-full rounded-2xl" />
           </div>
 
-          {/* Right - text. Line is in hero-line-wrap (section level). */}
-          <div className="flex flex-col justify-between space-y-8 pl-4 md:pl-10 h-full relative">
+          {/* Right - text. Mobile: vertical line inside container to match height. */}
+          <div className="flex flex-col justify-between space-y-8 pl-4 md:pl-10 h-full relative overflow-hidden hero-text-col">
+            <div className="hero-line-mobile" />
             <div>
               <h1 className="hero-title text-5xl lg:text-8xl font-bold text-white mb-2">
                 {t("title")}
@@ -272,6 +276,7 @@ export default function HeroSection() {
           margin-top: -1px;
           background: rgba(255, 255, 255, 0.95);
           transform-origin: right center;
+          z-index: 2;
           animation: hero-line-shrink 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
         }
 
@@ -284,6 +289,7 @@ export default function HeroSection() {
           margin-top: -1px;
           background: rgba(255, 255, 255, 0.95);
           transform-origin: left center;
+          z-index: 2;
           animation: hero-line-shrink 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
         }
 
@@ -315,6 +321,8 @@ export default function HeroSection() {
             rgba(255, 255, 255, 0.2)
           );
           transform-origin: center center;
+          opacity: 0;
+          z-index: 1;
           animation: hero-line-vertical 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
         }
 
@@ -338,24 +346,49 @@ export default function HeroSection() {
 
         @media (max-width: 1023px) {
           .hero-line-left,
-          .hero-line-right {
-            animation: hero-line-shrink-mobile 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-          }
+          .hero-line-right,
           .hero-line-vertical {
-            animation: none;
             display: none;
           }
         }
 
-        @keyframes hero-line-shrink-mobile {
+        .hero-line-mobile {
+          display: none;
+        }
+
+        @media (max-width: 1023px) {
+          .hero-text-col {
+            min-height: 0;
+          }
+          .hero-line-mobile {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(
+              to bottom,
+              rgba(255, 255, 255, 0.2),
+              rgba(255, 255, 255, 0.95) 20%,
+              rgba(255, 255, 255, 0.95) 80%,
+              rgba(255, 255, 255, 0.2)
+            );
+            opacity: 0;
+            transform-origin: top center;
+            animation: hero-line-vertical-mobile 1.2s ease-out 0.4s forwards;
+          }
+        }
+
+        @keyframes hero-line-vertical-mobile {
           0% {
             opacity: 0;
-            transform: scaleX(0.3);
+            transform: scaleY(0);
           }
           100% {
             opacity: 1;
-            transform: scaleX(1);
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+            transform: scaleY(1);
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
           }
         }
 
