@@ -1,4 +1,6 @@
 "use client";
+
+import { useEffect, useRef, useState } from "react";
 import Card1 from "../../common/card1/page";
 import Title from "../../common/tittle/page";
 
@@ -78,20 +80,59 @@ function FeatureCard({ title, description, point }: FeatureCardProps) {
 }
 
 export default function Section6() {
+  const ref = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ob = new IntersectionObserver(
+      ([e]) => { if (e?.isIntersecting) setIsInView(true); },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+    );
+    ob.observe(el);
+    return () => ob.disconnect();
+  }, []);
+
   return (
-    <section className="relative flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <Title title="Explore the product" isUnderline />
+    <section ref={ref} className={`relative flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 about-s6 ${isInView ? "about-s6-visible" : ""}`}>
+      <div className="about-s6-title">
+        <Title title="Explore the product" isUnderline={false} className="mb-2" />
+        <div className="about-s6-underline" />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
         {data.map((feature, index) => (
+          <div key={index} className="about-s6-card" style={{ animationDelay: `${index * 0.1}s` }}>
           <FeatureCard
             key={index}
             title={feature.title}
             description={feature.description}
             point={feature.point}
           />
+          </div>
         ))}
       </div>
+
+      <style jsx>{`
+        .about-s6-title :global(h1) { clip-path: inset(0 100% 0 0); }
+        .about-s6-visible .about-s6-title :global(h1) {
+          animation: about-reveal-lr 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .about-s6-underline {
+          height: 2px; width: 0; margin-top: 0.5rem; margin-bottom: 2rem; background: white; display: block;
+        }
+        .about-s6-visible .about-s6-underline {
+          animation: about-underline 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        }
+        .about-s6-card { opacity: 0; transform: translateY(24px); }
+        .about-s6-visible .about-s6-card {
+          animation: about-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes about-reveal-lr { to { clip-path: inset(0 0 0 0); } }
+        @keyframes about-underline { to { width: 100%; } }
+        @keyframes about-fade-up { to { opacity: 1; transform: translateY(0); } }
+      `}</style>
     </section>
   );
 }

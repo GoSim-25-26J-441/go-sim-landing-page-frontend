@@ -6,26 +6,64 @@ import logo from "../images/logo/logo.png";
 export default function Loading() {
   return (
     <div className="min-h-dvh grid place-items-center bg-linear-to-b from-black/10 to-black">
-      <div className="relative animate-pulse-glow">
-        <Image src={logo} alt="GO-SIM Logo" width={50} height={50} />
+      <div className="loading-content">
+        <div className="loading-logo-wrap">
+          <Image src={logo} alt="GO-SIM Logo" width={52} height={52} priority />
+        </div>
+        <div className="loading-bar">
+          <div className="loading-bar-fill" />
+        </div>
       </div>
 
       <style jsx>{`
-        @keyframes pulse-glow {
-          0%,
-          100% {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-            transform: scale(1);
+        .loading-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.25rem;
+        }
+        .loading-logo-wrap {
+          animation: spin-glow 1.6s linear infinite;
+        }
+
+        @keyframes spin-glow {
+          0% {
+            transform: rotate(0deg);
+            filter: drop-shadow(0 0 12px rgba(148, 163, 184, 0.35));
           }
           50% {
-            opacity: 0.8;
-            filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.8));
-            transform: scale(1.05);
+            transform: rotate(180deg);
+            filter: drop-shadow(0 0 24px rgba(148, 163, 184, 0.6));
+          }
+          100% {
+            transform: rotate(360deg);
+            filter: drop-shadow(0 0 12px rgba(148, 163, 184, 0.35));
           }
         }
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
+
+        .loading-bar {
+          width: 80px;
+          height: 3px;
+          background: rgba(148, 163, 184, 0.2);
+          border-radius: 2px;
+          overflow: hidden;
+        }
+
+        .loading-bar-fill {
+          height: 100%;
+          width: 40%;
+          background: white;
+          border-radius: 2px;
+          animation: loading-slide 1.2s ease-in-out infinite;
+        }
+
+        @keyframes loading-slide {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(350%);
+          }
         }
       `}</style>
     </div>

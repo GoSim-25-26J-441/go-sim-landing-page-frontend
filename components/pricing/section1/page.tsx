@@ -45,7 +45,7 @@ function PricingCard({ plan }: PricingCardProps) {
                             alt=""
                             width={12}
                             height={12}
-                            className="mr-2 flex-shrink-0 mt-1"
+                            className="mr-2 shrink-0 mt-1"
                         />
                         <span className="ml-2 mt-2" dangerouslySetInnerHTML={{
                             __html: feature.replace(
