@@ -35,7 +35,7 @@ const SECTIONS: Section[] = [
       { href: "/research", label: "Research summary" },
       { href: "/examples", label: "Sample architectures" },
       { href: "/faq", label: "FAQ" },
-      { href: "https://github.com", label: "GitHub" },
+      { href: "https://github.com/GoSim-25-26J-441", label: "GitHub" },
     ],
   },
 ];
@@ -52,7 +52,7 @@ const CONTACTS = [
 ];
 
 const SOCIALS = [
-  { href: "https://github.com", label: "GitHub", icon: githubIcon },
+  { href: "https://github.com/GoSim-25-26J-441", label: "GitHub", icon: githubIcon },
   { href: "https://linkedin.com", label: "LinkedIn", icon: linkedinIcon },
 ];
 
