@@ -112,7 +112,7 @@ export default function Navbar() {
                 <Link
                   href="/"
                   aria-label="GO-SIM Home"
-                  className="flex rounded-xl p-1.5 ring-1 ring-transparent transition hover:bg-white/6 hover:ring-white/10"
+                  className="flex rounded-xl p-1.5 ring-1 ring-transparent transition"
                 >
                   <Image
                     src={logo}
