@@ -3,7 +3,7 @@ import { pricingConstants } from '../constant/page';
 export default function Section3() {
     return (
         <section className="mb-12 md:mb-20">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
+            <h2 className="mb-4 text-2xl font-bold tracking-tight text-white md:mb-6 md:text-3xl">
                 {pricingConstants.whatsIncluded.title}
             </h2>
             <div className="border border-white mb-8 md:mb-12" />

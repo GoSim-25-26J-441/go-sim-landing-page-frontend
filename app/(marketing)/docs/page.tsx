@@ -21,7 +21,7 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">
+    <div className="min-h-screen pt-16">
       {/* Mobile: Horizontal scrolling tabs */}
       <div className="md:hidden sticky top-16 z-40 ">
         <nav className="flex justify-center gap-10 scrollbar-hide my-10 w-full">

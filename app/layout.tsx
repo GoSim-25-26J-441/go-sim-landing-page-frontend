@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "../styles/globals.css";
 import "../styles/theme.css";
 
@@ -15,6 +16,14 @@ export const metadata: Metadata = {
   },
 };
 
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-landing",
+  adjustFontFallback: true,
+});
+
 export default async function RootLayout({
   children,
 }: {
@@ -24,8 +33,10 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="dark">
-      <body className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black">
+    <html lang={locale} className={`dark ${fontSans.variable}`}>
+      <body
+        className={`${fontSans.className} min-h-screen bg-linear-to-b from-[#1F1F1F] to-black text-white antialiased`}
+      >
         <NextIntlClientProvider messages={messages}>
           <TimedLoader ms={1000} Loader={Loading}>
             {children}

@@ -4,14 +4,14 @@ export default function Section2() {
     return (
         <>
             <div className="border border-gray-500 rounded overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-xs md:text-sm">
                     <thead>
                         <tr className="border-b border-gray-300">
                             {pricingConstants.comparisonTable.headers.map((header, index) => (
                                 <th
                                     key={index}
-                                    className={`px-3 md:px-6 py-4 text-center ${index < pricingConstants.comparisonTable.headers.length - 1 ? 'border-r border-gray-500' : ''
-                                        } text-xs md:text-base ${index === 0 ? '' : 'font-bold text-lg md:text-2xl text-white'}`}
+                                    className={`px-3 py-3 text-center md:px-5 md:py-3.5 ${index < pricingConstants.comparisonTable.headers.length - 1 ? 'border-r border-gray-500' : ''
+                                        } ${index === 0 ? 'font-medium text-gray-300' : 'font-semibold text-white'}`}
                                 >
                                     {header}
                                 </th>
@@ -24,8 +24,8 @@ export default function Section2() {
                                 {row.map((cell, cellIndex) => (
                                     <td
                                         key={cellIndex}
-                                        className={`px-3 md:px-6 py-4 ${cellIndex < row.length - 1 ? 'border-r border-gray-500' : ''
-                                            } ${cellIndex === 0 ? 'font-medium text-gray-200' : 'text-center'} text-xs md:text-base`}
+                                        className={`px-3 py-3 md:px-5 md:py-3.5 ${cellIndex < row.length - 1 ? 'border-r border-gray-500' : ''
+                                            } ${cellIndex === 0 ? 'font-medium text-gray-200' : 'text-center text-gray-300'}`}
                                     >
                                         {cell}
                                     </td>

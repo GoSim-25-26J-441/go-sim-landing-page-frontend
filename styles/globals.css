@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-/* ✅ Add these */
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter.woff2") format("woff2");
-  font-display: swap;
-}
-
 @font-face {
   font-family: "Noto Sans Sinhala";
   src: url("/fonts/NotoSansSinhala.woff2") format("woff2");
@@ -28,9 +21,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* (optional) you can leave these, but they won't matter now */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-landing), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,9 +33,8 @@
 }
 
 body {
-  background: var(--background);
+  background-color: transparent;
   color: var(--foreground);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
 html {

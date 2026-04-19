@@ -7,9 +7,9 @@ import Section5 from '../../../components/pricing/section5/page';
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16 text-white mt-10">
-      <section className="px-4 md:px-8 py-12 md:py-20">
-        <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen pt-16">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="mx-auto max-w-6xl">
           <HeroSection />
           <Section1 />
           <Section2 />

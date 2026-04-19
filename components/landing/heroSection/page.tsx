@@ -1,63 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-
-class Particle {
-  x: number;
-  y: number;
-  z: number;
-  vx: number;
-  vy: number;
-  vz: number;
-  radius: number;
-
-  constructor(canvasWidth: number, canvasHeight: number) {
-    this.x = Math.random() * canvasWidth;
-    this.y = Math.random() * canvasHeight;
-    this.z = Math.random() * 1000;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
-    this.vz = (Math.random() - 0.5) * 2;
-    this.radius = 2;
-  }
-
-  update(canvasWidth: number, canvasHeight: number) {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.z += this.vz;
-
-    if (this.x < 0) this.x = canvasWidth;
-    if (this.x > canvasWidth) this.x = 0;
-    if (this.y < 0) this.y = canvasHeight;
-    if (this.y > canvasHeight) this.y = 0;
-    if (this.z < 0) this.z = 1000;
-    if (this.z > 1000) this.z = 0;
-  }
-
-  draw(
-    ctx: CanvasRenderingContext2D,
-    canvasWidth: number,
-    canvasHeight: number
-  ) {
-    const scale = 1000 / (1000 + this.z);
-    const x2d = this.x * scale + (canvasWidth / 2) * (1 - scale);
-    const y2d = this.y * scale + (canvasHeight / 2) * (1 - scale);
-    const radius = this.radius * scale;
-
-    ctx.beginPath();
-    ctx.arc(x2d, y2d, radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 255, 255, ${0.85 * scale})`;
-    ctx.fill();
-  }
-}
+import NetworkCanvas from "../../network/NetworkCanvas";
 
 const CANVAS_DELAY_MS = 2800;   // Canvas appears when line is vertical in middle
 const LINKS_DELAY_MS = 800;     // Links appear after canvas shows
 
 export default function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [showCanvas, setShowCanvas] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const router = useRouter();
@@ -73,104 +24,6 @@ export default function HeroSection() {
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-    };
-  }, []);
-
-  const showLinksRef = useRef(false);
-  useEffect(() => {
-    showLinksRef.current = showLinks;
-  }, [showLinks]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const particles: Particle[] = [];
-    const particleCount = 80;
-    const connectionDistance = 150;
-
-    let rafId = 0;
-
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-
-      if (!w || !h) return;
-
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    resize();
-
-    particles.length = 0;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle(canvas.clientWidth, canvas.clientHeight));
-    }
-
-    const animate = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-
-      ctx.clearRect(0, 0, w, h);
-
-      for (const p of particles) {
-        p.update(w, h);
-        p.draw(ctx, w, h);
-      }
-
-      if (!showLinksRef.current) {
-        rafId = requestAnimationFrame(animate);
-        return;
-      }
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.hypot(dx, dy);
-
-          if (distance < connectionDistance) {
-            const scale1 = 1000 / (1000 + particles[i].z);
-            const scale2 = 1000 / (1000 + particles[j].z);
-            const opacity =
-              (1 - distance / connectionDistance) *
-              0.3 *
-              Math.min(scale1, scale2);
-
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-            ctx.lineWidth = 1;
-
-            ctx.moveTo(
-              particles[i].x * scale1 + (w / 2) * (1 - scale1),
-              particles[i].y * scale1 + (h / 2) * (1 - scale1)
-            );
-
-            ctx.lineTo(
-              particles[j].x * scale2 + (w / 2) * (1 - scale2),
-              particles[j].y * scale2 + (h / 2) * (1 - scale2)
-            );
-
-            ctx.stroke();
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(animate);
-    };
-
-    rafId = requestAnimationFrame(animate);
-
-    window.addEventListener("resize", resize);
-    return () => {
-      window.removeEventListener("resize", resize);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -199,7 +52,10 @@ export default function HeroSection() {
   signUpUrl.searchParams.set("returnTo", returnTo);
 
   return (
-    <section className="w-full min-h-[calc(100vh-4rem)] flex items-center overflow-hidden relative">
+    <section
+      id="landing-home-hero"
+      className="w-full min-h-[calc(100vh-4rem)] flex items-center overflow-hidden relative"
+    >
       {/* Line: horizontal across, left & right shrink to middle, then vertical line */}
       <div className="hero-line-wrap">
         <div className="hero-line-left" />
@@ -215,7 +71,14 @@ export default function HeroSection() {
               showCanvas ? "opacity-100" : "opacity-0"
             }`}
           >
-            <canvas ref={canvasRef} className="w-full h-full rounded-2xl" />
+            <NetworkCanvas
+              connectionsEnabled={showLinks}
+              suspendWhenOutOfView
+              className="h-full w-full"
+              canvasClassName="h-full w-full rounded-2xl"
+              particleCount={80}
+              connectionDistance={150}
+            />
           </div>
 
           {/* Right - text. Mobile: vertical line inside container to match height. */}

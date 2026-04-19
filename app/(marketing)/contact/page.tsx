@@ -38,7 +38,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">
+    <div className="min-h-screen pt-16">
       <ButtonSet
         buttonsVisible={false}
         title={"Contact us"}
