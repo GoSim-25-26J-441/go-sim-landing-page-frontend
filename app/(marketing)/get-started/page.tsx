@@ -13,7 +13,7 @@ export default function GetStarted() {
   signUpUrl.searchParams.set("returnTo", returnTo);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#1F1F1F] to-black pt-16">
+    <div className="min-h-screen pt-16">
       <ButtonSet
         title="Getting started with GO-SIM"
         description="Follow these steps to go from a blank account to your first analyzed microservice architecture."

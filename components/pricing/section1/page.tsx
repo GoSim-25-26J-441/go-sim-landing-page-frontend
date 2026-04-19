@@ -21,22 +21,22 @@ function PricingCard({ plan }: PricingCardProps) {
                 {planData.for}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-center items-start font-bold text-white mb-4">
-                <div className="text-2xl md:text-3xl md:pr-4">{planData.title}</div>
-                <div className="text-sm border-l-4 border-white pl-4 mt-2 md:mt-0">
+            <div className="mb-4 flex flex-col items-start justify-center font-bold text-white md:flex-row md:items-start">
+                <div className="text-xl md:pr-4 md:text-2xl">{planData.title}</div>
+                <div className="mt-2 border-l-4 border-white pl-4 text-sm md:mt-0">
                     <span className={plan === 'free' ? '' : 'font-bold text-white'}>
                         {plan === 'free' ? planData.subtitle : planData.title === 'Pro' ? '$12 / month' : '$29 / month'}
                     </span>
                     <br />
-                    <h1 className='text-sm text-gray-300'>{planData.description}</h1>
+                    <span className="block pt-1 text-xs font-normal text-gray-300 md:text-sm">{planData.description}</span>
                 </div>
             </div>
 
-            <div className="text-center text-sm text-gray-300 my-4 md:my-5">
+            <div className="my-4 text-center text-xs text-gray-300 md:my-5 md:text-sm">
                 {planData.descriptionText}
             </div>
 
-            <div className="space-y-3 text-sm text-gray-300 w-full">
+            <div className="w-full space-y-3 text-xs text-gray-300 md:text-sm">
                 <div className="font-semibold">What you get,</div>
                 {features.map((feature, index) => (
                     <div key={index} className="flex items-start">
@@ -58,7 +58,7 @@ function PricingCard({ plan }: PricingCardProps) {
             </div>
 
             <div className="w-full flex flex-col items-center justify-center mt-auto pt-6 md:pt-8">
-                <button className="w-full md:w-2/3 bg-white text-black font-bold py-2 rounded-xl my-4 hover:bg-gray-200">
+                <button type="button" className="my-4 w-full rounded-xl bg-white py-2.5 text-sm font-bold text-black hover:bg-gray-200 md:w-2/3">
                     {planData.button}
                 </button>
                 <p className="text-xs text-white mb-6 text-center whitespace-pre-line">
