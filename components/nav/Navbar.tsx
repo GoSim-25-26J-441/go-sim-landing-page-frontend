@@ -208,9 +208,11 @@ export default function Navbar() {
                 />
                 Sign In
               </Link>
+
+            <span className="text-white px-2">|</span>
               <Link
                 href="/get-started"
-                className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-900 shadow-sm transition hover:bg-zinc-100 active:scale-[0.98]"
+                className="px-3 py-1.5 text-sm font-semibold text-white"
               >
                 Get Started
               </Link>
