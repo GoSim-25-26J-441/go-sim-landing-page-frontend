@@ -106,7 +106,7 @@ export default function Navbar() {
         }`}
       >
         <div className="pointer-events-auto px-3 pt-3 md:px-5 md:pt-4">
-          <nav className="relative mx-auto flex h-13 max-w-6xl flex-row justify-between items-center gap-2 rounded-2xl border border-white/8 bg-white/6 px-2 shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl md:h-14 md:max-w-6xl md:gap-3 md:rounded-full md:px-4 md:shadow-[0_12px_48px_rgba(0,0,0,0.4)]">
+          <nav className="relative mx-auto flex h-13 max-w-6xl flex-row justify-between items-center gap-2 px-2 md:h-14 md:max-w-6xl md:gap-3 md:rounded-full md:px-4 ">
             <div className="flex flex-row w-full">
               <div className="nav-logo flex shrink-0 items-center pl-1 md:min-w-12 md:pl-0">
                 <Link
