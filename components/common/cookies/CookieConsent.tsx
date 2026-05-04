@@ -25,7 +25,7 @@ export default function CookieConsent() {
     <div className="fixed inset-x-0 bottom-0 z-50 bg-white">
       <div className="mx-auto max-w-6xl m-4 bg-card p-4">
         <p className="text-sm text-black">
-          We use essential cookies to make GO-SIM work. See our{" "}
+          We use essential cookies to make ArcFind work. See our{" "}
           <a href="/privacy" className="text-brand underline text-black">Privacy Policy</a>.
         </p>
         <div className="mt-3 flex gap-2">

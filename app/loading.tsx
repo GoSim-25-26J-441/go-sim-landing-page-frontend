@@ -8,7 +8,7 @@ export default function Loading() {
     <div className="min-h-dvh grid place-items-center bg-linear-to-b from-black/10 to-black">
       <div className="loading-content">
         <div className="loading-logo-wrap">
-          <Image src={logo} alt="GO-SIM Logo" width={52} height={52} priority />
+          <Image src={logo} alt="ArcFind logo" width={52} height={52} priority />
         </div>
         <div className="loading-bar">
           <div className="loading-bar-fill" />

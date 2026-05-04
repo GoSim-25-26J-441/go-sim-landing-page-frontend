@@ -43,7 +43,7 @@ export default function Page() {
         buttonsVisible={false}
         title={"Contact us"}
         description={
-          "Questions about GO-SIM, your account, or the research? We’d love to hear from you."
+          "Questions about ArcFind, your account, or the research? We’d love to hear from you."
         }
         className="pb-10 md:pb-40"
       />

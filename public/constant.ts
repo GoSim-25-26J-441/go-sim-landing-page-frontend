@@ -86,7 +86,7 @@ export const section3: Section4Props = {
     },
     {
       part2: [
-        { mainPoints: "Do I need to deploy my services to use GO-SIM ?", subPoints: "No. You can work from architecture specs (YAML/JSON) before deployment." },
+        { mainPoints: "Do I need to deploy my services to use ArcFind?", subPoints: "No. You can work from architecture specs (YAML/JSON) before deployment." },
         { mainPoints: "Is this free for students ?", subPoints: "Yes, there is a free tier suitable for academic projects." },
         { mainPoints: "Can I export diagrams and reports ?", subPoints: "Yes, you can export graphs and summaries (PDF/PNG/JSON)." },
         { mainPoints: "Is my code/architecture stored ?", subPoints: "Explain how you handle this (for prototype, just say locally / for demo)." },

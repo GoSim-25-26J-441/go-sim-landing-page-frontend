@@ -9,19 +9,19 @@ const points = [
     title: "Design Input Processing Model",
     subTitle: "Design Input Processing",
     introduction:
-      "Import microservice definitions from YAML/JSON or start from a natural language description in chat. GO-SIM parses services, endpoints, and data stores into a consistent internal model so you can work at the architecture level instead of raw files.",
+      "Import microservice definitions from YAML/JSON or start from a natural language description in chat. ArcFind parses services, endpoints, and data stores into a consistent internal model so you can work at the architecture level instead of raw files.",
   },
   {
     title: "Architecture Model & Anti-Pattern Detection (AMG & APD)",
     subTitle: "Architecture Model & Anti-Pattern Detection",
     introduction:
-      "GO-SIM builds an interactive graph of services, calls, and databases. On top of that graph, it detects common microservice anti-patterns like chatty calls, cycles, god services, shared database writes, cross-DB reads, and tight coupling.",
+      "ArcFind builds an interactive graph of services, calls, and databases. On top of that graph, it detects common microservice anti-patterns like chatty calls, cycles, god services, shared database writes, cross-DB reads, and tight coupling.",
   },
   {
     title: "Real-Time System Simulation",
     subTitle: "Real-Time System Simulation",
     introduction:
-      "Configure traffic levels, latency, and failure scenarios, then let GO-SIM simulate how your architecture behaves. Explore bottlenecks, critical paths, and potential failure points without touching a live environment.",
+      "Configure traffic levels, latency, and failure scenarios, then let ArcFind simulate how your architecture behaves. Explore bottlenecks, critical paths, and potential failure points without touching a live environment.",
   },
   {
     title: "Architecture Analysis & Suggestions",

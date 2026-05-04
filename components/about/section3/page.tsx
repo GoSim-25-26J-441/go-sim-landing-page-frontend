@@ -32,7 +32,7 @@ export default function Section3() {
         <div className="about-s3-underline" />
       </div>
       <h2 className="about-s3-desc my-2 text-sm font-normal text-white/80 leading-relaxed">
-        {"GO-SIM is a web-based tool that helps you design, inspect, and stress-test microservice architectures. It turns your service definitions into an interactive graph, detects architecture anti-patterns, and runs simulations to estimate performance and cost."}
+        {"ArcFind is a web-based tool that helps you design, inspect, and stress-test microservice architectures. It turns your service definitions into an interactive graph, detects architecture anti-patterns, and runs simulations to estimate performance and cost."}
       </h2>
       <div className="about-s3-cards">
         <Card1 points={points} />

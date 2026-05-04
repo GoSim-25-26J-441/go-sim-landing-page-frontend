@@ -222,7 +222,7 @@ export default function Footer() {
       <div className="border-t border-slate-800">
         <div className="mx-auto max-w-7xl px-1 sm:px-2 lg:px-4 py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-gray-500">
-            <span>© {year} GO-SIM. All rights reserved.</span>
+            <span>© {year} ArcFind. All rights reserved.</span>
             <span className="text-gray-600">
               Built as a research project at SLIIT.
             </span>

@@ -12,7 +12,7 @@ export const pricingConstants = {
       subtitle: "$0 ",
       description: "forever",
       descriptionText:
-        "Try GO-SIM on small architectures, explore graphs, and run basic checks.",
+        "Try ArcFind on small architectures, explore graphs, and run basic checks.",
       for: "Best for\nstudents & experiments",
       button: "Start for free",
       buttonNote: "No credit card required",
@@ -121,7 +121,7 @@ export const pricingConstants = {
     title: "Pricing & plans FAQ",
     items: [
       {
-        question: "1. Is GO-SIM free for students?",
+        question: "1. Is ArcFind free for students?",
         answer:
           "Yes. The Free plan is designed for students and small research experiments with limited project size.",
       },
@@ -143,7 +143,7 @@ export const pricingConstants = {
       {
         question: "5. Do you store my architecture data?",
         answer:
-          "For the prototype, data is used only inside GO-SIM for analysis and visualization. You can delete your projects at any time.",
+          "For the prototype, data is used only inside ArcFind for analysis and visualization. You can delete your projects at any time.",
       },
       {
         question: "6. Can I cancel my subscription?",

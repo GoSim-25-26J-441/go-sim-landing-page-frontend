@@ -20,7 +20,7 @@ export default function Section2() {
         <div className="flex flex-col justify-start gap-2">
           <p className="text-sm font-normal leading-relaxed">
             {
-              "New to microservices or just testing the tool? Load a built-in sample project to explore GO-SIM without any setup."
+              "New to microservices or just testing the tool? Load a built-in sample project to explore ArcFind without any setup."
             }
           </p>
 

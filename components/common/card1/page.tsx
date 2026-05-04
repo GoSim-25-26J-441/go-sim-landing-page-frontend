@@ -14,7 +14,7 @@ const HIGHLIGHT = [
   "YAML/JSON",
   "detect dangerous patterns",
   "Simulate workloads",
-  "GO-SIM parses services, endpoints, and dependencies.",
+  "ArcFind parses services, endpoints, and dependencies.",
   "Filter by service, database, or boundary.",
   "Drill down into chat explanations and pattern details.",
   "Export metrics and diagrams for your reports.",

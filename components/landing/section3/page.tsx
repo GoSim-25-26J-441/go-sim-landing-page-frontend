@@ -15,19 +15,19 @@ const steps: Card2Props[] = [
   {
     step: 1,
     title: "Import your architecture",
-    description: "Start from YAML, JSON, or a visual tool description.",
+    description: "Start from YAML, JSON, or a short natural-language description.",
     introduction:
-      "Upload your microservice definitions or describe your system in natural language.",
+      "Bring in microservice definitions from files or describe your system in chat so ArcFind can build a working model.",
     points: [
       {
         mainPoints: "You",
         subPoints:
-          "Drag-and-drop YAML/JSON files or paste service config into the chat.",
+          "Upload YAML or JSON, paste configs, or sketch your system so the conversation has real structure to work from.",
       },
       {
         mainPoints: "ArcFind",
         subPoints:
-          "Parses services, endpoints, databases, and connections into an internal model.",
+          "Ingests services, APIs, data stores, and dependencies and normalizes them into a single architecture graph.",
       },
     ],
   },
@@ -36,53 +36,55 @@ const steps: Card2Props[] = [
     title: "Design & Visualize",
     description: "See your architecture come to life.",
     introduction:
-      "Interactive visual editor with drag-and-drop components and real-time updates.",
+      "Use the visual editor and chat together—move pieces, refine names, and watch the diagram stay in sync with the model.",
     points: [
       {
         mainPoints: "You",
         subPoints:
-          "Drag-and-drop YAML/JSON files or paste service config into the chat.",
+          "Refine components, connections, and boundaries in the canvas or by editing structured input in the chat.",
       },
       {
         mainPoints: "ArcFind",
         subPoints:
-          "Parses services, endpoints, databases, and connections into an internal model.",
+          "Keeps the live diagram aligned with the underlying model so every edit is reflected consistently.",
       },
     ],
   },
   {
     step: 3,
     title: "Analyze & Detect",
-    description: "Identify anti-patterns and optimization opportunities.",
-    introduction: "AI-powered analysis to catch issues before deployment.",
+    description: "Spot anti-patterns and improvement paths before you ship.",
+    introduction:
+      "Run guided analysis to surface risky coupling, missing resilience, and other issues early.",
     points: [
       {
         mainPoints: "You",
         subPoints:
-          "Drag-and-drop YAML/JSON files or paste service config into the chat.",
+          "Choose what to inspect—flows, data paths, or specific services—and steer the analysis with plain language.",
       },
       {
         mainPoints: "ArcFind",
         subPoints:
-          "Parses services, endpoints, databases, and connections into an internal model.",
+          "Highlights anti-patterns, bottlenecks, and trade-offs with explanations tied to your actual topology.",
       },
     ],
   },
   {
     step: 4,
     title: "Simulate & Deploy",
-    description: "Test performance before going live.",
-    introduction: "Run simulations and get deployment-ready configurations.",
+    description: "Stress-test behavior and walk away with actionable outputs.",
+    introduction:
+      "Exercise load and failure scenarios on the model, then export or hand off configs that match what you validated.",
     points: [
       {
         mainPoints: "You",
         subPoints:
-          "Drag-and-drop YAML/JSON files or paste service config into the chat.",
+          "Define scenarios, targets, and constraints—what to protect, what to break, and what “good” looks like.",
       },
       {
         mainPoints: "ArcFind",
         subPoints:
-          "Parses services, endpoints, databases, and connections into an internal model.",
+          "Runs simulations on the graph and summarizes results so you can tune capacity and rollout plans with evidence.",
       },
     ],
   },
@@ -173,7 +175,7 @@ export default function Section3({ title, description }: TitleProps) {
                 {/* Actual YouTube Embed - Uncomment and use your video IDs */}
                 <iframe
                   className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1`}
+                  src="https://www.youtube.com/embed/vNg3BqyFbYc"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />

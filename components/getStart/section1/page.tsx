@@ -7,7 +7,7 @@ import MultiStepGuide from "./sub/page";
 const data = {
   mainPoints: [
     "A modern browser (Chrome, Edge, Firefox, etc.)",
-    "A GO-SIM account (Free plan is enough)",
+    "An ArcFind account (Free plan is enough)",
     "Optional: a YAML/JSON microservice definition, or use our sample file",
   ],
 };

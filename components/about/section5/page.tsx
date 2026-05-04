@@ -12,7 +12,7 @@ const steps = [
     title: "Import",
     point: [
       "Upload YAML/JSON or describe your architecture in chat.",
-      "GO-SIM parses services, endpoints, and dependencies.",
+      "ArcFind parses services, endpoints, and dependencies.",
     ],
   },
   {

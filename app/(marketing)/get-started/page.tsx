@@ -15,7 +15,7 @@ export default function GetStarted() {
   return (
     <div className="min-h-screen pt-16">
       <ButtonSet
-        title="Getting started with GO-SIM"
+        title="Getting started with ArcFind"
         description="Follow these steps to go from a blank account to your first analyzed microservice architecture."
         buttonsVisible={true}
         button1Name="Create account"

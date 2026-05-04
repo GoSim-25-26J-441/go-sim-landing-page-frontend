@@ -53,7 +53,7 @@ const steps = [
     number: 4,
     title: "Explore the architecture graph",
     subtitle:
-      "After uploading your input, GO-SIM will show you an interactive graph of services and data stores.",
+      "After uploading your input, ArcFind will show you an interactive graph of services and data stores.",
     points: [
       "Hover over nodes to see service names and types.",
       "Click edges to see which service calls which, and on what path.",

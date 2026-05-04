@@ -18,7 +18,7 @@ const data = [
   {
     title: "Anti-pattern insights",
     description:
-      "GO-SIM lists all detected anti-patterns with severity, location, and explanation, so you can quickly understand why something is risky.",
+      "ArcFind lists all detected anti-patterns with severity, location, and explanation, so you can quickly understand why something is risky.",
     point: [
       "See issues like 'Chatty calls from Service A to Service B'.",
       "Jump directly from a pattern entry to the graph location.",

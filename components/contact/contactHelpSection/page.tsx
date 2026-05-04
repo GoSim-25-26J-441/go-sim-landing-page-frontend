@@ -85,14 +85,14 @@ export default function ContactHelpSection() {
           </div>
         </div>
 
-        {/* About GO-SIM Section */}
+        {/* About ArcFind Section */}
         <div className="space-y-1">
-          <h2 className="text-xl font-bold">{'About GO-SIM'}</h2>
+          <h2 className="text-xl font-bold">{'About ArcFind'}</h2>
           <div className="h-px bg-white mb-6"></div>
 
           <p className="text-[12px] text-white leading-relaxed">
             {
-              "GO-SIM is a microservice architecture analysis and simulation tool, built as a final-year research project at SLIIT. If you're an academic, researcher, or collaborator, feel free to mention this in your message so we can route it accordingly."
+              "ArcFind is a microservice architecture analysis and simulation tool, built as a final-year research project at SLIIT. If you're an academic, researcher, or collaborator, feel free to mention this in your message so we can route it accordingly."
             }
           </p>
         </div>

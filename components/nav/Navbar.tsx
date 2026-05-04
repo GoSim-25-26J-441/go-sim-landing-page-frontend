@@ -111,12 +111,12 @@ export default function Navbar() {
               <div className="nav-logo flex shrink-0 items-center pl-1 md:min-w-12 md:pl-0">
                 <Link
                   href="/"
-                  aria-label="GO-SIM Home"
+                  aria-label="ArcFind Home"
                   className="flex rounded-xl p-1.5 ring-1 ring-transparent transition"
                 >
                   <Image
                     src={logo}
-                    alt="GO-SIM Logo"
+                    alt="ArcFind logo"
                     width={30}
                     height={30}
                     className="size-[30px]"
